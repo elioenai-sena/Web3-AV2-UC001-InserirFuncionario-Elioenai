@@ -29,7 +29,7 @@ public class UsuarioService {
 			System.out.println("Usuário admin já existe");
 		}
 	}
-	
+
 	public void criarUsuario() {
 		Usuario usuario = new Usuario();
 		usuario.setAtivo(true);
@@ -42,11 +42,22 @@ public class UsuarioService {
 		try {
 			inserirUsuario(usuario);
 		} catch (ServiceException e) {
-			System.out.println("Usuário " +usuario.getLogin()+" já existe");
+			System.out.println("Usuário " + usuario.getLogin() + " já existe");
 		}
 	}
-	
-	
+
+	public void resetSenha(String login) throws ServiceException {
+		if (usuarioDAO.existsByLogin(login)) {
+			Usuario usuario = usuarioDAO.findByLogin(login);
+			usuarioDAO.delete(usuario);
+			String novaSenha = "user123";
+			usuario.setSenha(Util.md5(novaSenha));
+			usuarioDAO.save(usuario);
+		}else {
+			throw new ServiceException("Login Não existe!!!");
+		}
+
+	}
 
 	public void inserirUsuario(Usuario usuario) throws ServiceException {
 		usuario.setSenha(Util.md5(usuario.getSenha()));
