@@ -11,6 +11,8 @@ import br.ifpe.web2.util.Util;
 @Service
 public class UsuarioService {
 
+	private static final String USER123 = "user123";
+
 	@Autowired
 	private UsuarioDAO usuarioDAO;
 
@@ -47,13 +49,12 @@ public class UsuarioService {
 	}
 
 	public void resetSenha(String login) throws ServiceException {
-		if (usuarioDAO.existsByLogin(login)) {
-			Usuario usuario = usuarioDAO.findByLogin(login);
-			usuarioDAO.delete(usuario);
-			String novaSenha = "user123";
-			usuario.setSenha(Util.md5(novaSenha));
+
+		Usuario usuario = usuarioDAO.findByLogin(login);
+		if (usuario != null) {
+			usuario.setSenha(Util.md5(USER123));
 			usuarioDAO.save(usuario);
-		}else {
+		} else {
 			throw new ServiceException("Login Não existe!!!");
 		}
 

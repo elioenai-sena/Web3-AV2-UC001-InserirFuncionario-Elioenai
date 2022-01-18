@@ -44,6 +44,7 @@ public class CargoService {
 		String nomesCargos[] = { "Advogado", "Psicólog", "Secretária", "Gerente", "Vendedor" };
 		for (String nome : nomesCargos) {
 			Cargo c = new Cargo(nome);
+			c.setSalario(1000.0);
 			try {
 				this.inserirCargo(c);
 			} catch (ServiceException e) {

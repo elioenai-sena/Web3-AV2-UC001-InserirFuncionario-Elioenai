@@ -1,25 +1,31 @@
-package br.ifpe.web2.controller;
+package br.ifpe.web2.api;
+
+import java.util.List;
 
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ifpe.web2.model.cadastro.Cargo;
 import br.ifpe.web2.service.CargoService;
 import br.ifpe.web2.util.ServiceException;
 
-@Controller
-public class CargoController {
+@RestController
+@RequestMapping("/api/cargos")
+public class CargoResource {
 
 	@Autowired
 	private CargoService service;
 
+/*	
 	@GetMapping("/cargos")
 	public String exibirCargos(Cargo cargo, Model model) {
 		model.addAttribute("listaCargos", this.service.listarTodos(true));
@@ -57,5 +63,12 @@ public class CargoController {
 			
 		}
 		return "redirect:/cargos";
+	}
+*/
+	
+	//Api Rest
+	@GetMapping("/listarCargos")
+	public List<Cargo> listarCargo(){
+		return this.service.listarTodos(true);
 	}
 }
