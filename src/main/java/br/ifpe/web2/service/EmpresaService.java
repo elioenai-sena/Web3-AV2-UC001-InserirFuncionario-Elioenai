@@ -3,12 +3,14 @@ package br.ifpe.web2.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.ifpe.web2.dao.EmpresaDAO;
+import br.ifpe.web2.dao.FuncionarioDAO;
 import br.ifpe.web2.model.cadastro.Empresa;
 import br.ifpe.web2.util.ServiceException;
 
@@ -17,6 +19,9 @@ public class EmpresaService {
 
 	@Autowired
 	private EmpresaDAO empresaDAO;
+	
+	@Autowired
+	private FuncionarioDAO funcionarioDAO;
 
 	public List<Empresa> listarTodos(boolean ativo){
 		Sort sort = Sort.by("nomeRazaoSocial");
@@ -49,5 +54,10 @@ public class EmpresaService {
 			}
 		}
 	}
-	
+
+	public Optional<Empresa> buscarPorCodigo(Integer id) {
+		return empresaDAO.findById(id);
+	}
+
+		
 }

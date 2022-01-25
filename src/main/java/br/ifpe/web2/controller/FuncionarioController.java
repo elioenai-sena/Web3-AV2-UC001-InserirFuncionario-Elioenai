@@ -59,4 +59,11 @@ public class FuncionarioController {
 		}
 	}
 
+	@GetMapping("/deletarFuncPorCodigo")
+	public String deletarFuncPorCodigo(Integer codigo) {
+
+		this.funcService.deletarFuncPorCodigo(codigo);
+		return "redirect:/formFunc";
+	}
+
 }

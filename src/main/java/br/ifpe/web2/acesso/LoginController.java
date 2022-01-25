@@ -49,7 +49,7 @@ public class LoginController {
 	@PostMapping("/resetSenha")
 	public String resetSenha(Usuario usuario, RedirectAttributes ra) {
 		try {
-			usuarioService.resetSenha(usuario.getLogin());
+			this.usuarioService.resetSenha(usuario.getLogin());
 			ra.addFlashAttribute("mensagem", "Senha do usuario " + usuario.getLogin() + " foi alterada para user123");
 			return "redirect:/";
 		} catch (ServiceException e) {

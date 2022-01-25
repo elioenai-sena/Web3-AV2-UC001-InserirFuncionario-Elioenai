@@ -18,8 +18,7 @@
 			<div class="table-wrapper col-sm-12 col-md-8">
 			<div th:if="${session.usuarioLogado.perfil==T(br.ifpe.web2.acesso.Perfil).ADMINISTRADOR}">
 			<h4>Funcionários</h4>
-				<form action="/inserirFuncionario" method="post"
-					th:object="${funcionario}">
+				<form action="/inserirFuncionario" method="post" th:object="${funcionario}">
 					<input type="hidden" th:field="*{codigo}">
 					<input type="text" class="form-control" th:field="*{matricula}"
 						placeholder="Matrícula"> <input type="text"
@@ -45,8 +44,7 @@
 								class="alert-danger">
 						</ul>
 					</div>
-					<button type="submit" class="btn btn-secondary">Salvar
-						Funcionario</button>
+					<button type="submit" class="btn btn-secondary">Salvar Funcionario</button>
 
 				</form>
 			
@@ -59,7 +57,7 @@
 					<!--Table head-->
 					<thead>
 						<tr>
-							<th class="th-lg">Matrícula</th>
+							<th class="th-lg">Matricula</th>
 							<th class="th-lg">Nome</th>
 							<th class="th-lg">Cargo</th>
 							<th class="th-lg">Empresa</th>
@@ -80,7 +78,7 @@
 														
 							<td th:if="${session.usuarioLogado.perfil==T(br.ifpe.web2.acesso.Perfil).ADMINISTRADOR}">
 								<a href="">Editar</a> 
-								<a href="">Excluir</a>
+								<a th:href="@{/deletarFuncPorCodigo(codigo=${func.codigo})}">Excluir</a>
 							</td>
 							
 						</tr>
