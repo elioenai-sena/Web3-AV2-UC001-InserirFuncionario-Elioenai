@@ -21,8 +21,8 @@
 				<form action="/inserirFuncionario" method="post" th:object="${funcionario}">
 					<input type="hidden" th:field="*{codigo}">
 					<input type="text" class="form-control" th:field="*{matricula}"
-						placeholder="Matrícula"> <input type="text"
-						class="form-control" th:field="*{nome}" placeholder="Nome">
+						placeholder="Matrícula"> 
+						<input type="text" class="form-control" th:field="*{nome}" placeholder="Nome">
 					<input type="text" class="form-control" th:field="*{cpf}"
 						placeholder="CPF"> <input type="date" class="form-control"
 						th:field="*{dataNascimento}" placeholder="Data de Nascimento">
