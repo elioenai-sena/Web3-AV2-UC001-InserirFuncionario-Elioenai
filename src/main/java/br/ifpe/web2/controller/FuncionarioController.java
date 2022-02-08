@@ -66,4 +66,19 @@ public class FuncionarioController {
 		return "redirect:/formFunc";
 	}
 
+	@GetMapping("/editarFuncionario")
+	public String editarFuncionario(Funcionario funcionario, Integer codigo, Model model, RedirectAttributes ra) {
+
+		ra.addAttribute("funcionario", this.funcService.buscarFuncPorId(codigo).orElse(null));
+		return "redirect:/formFunc";
+		
+//		model.addAttribute("funcionario", this.funcService.buscarFuncPorId(codigo)) ;
+//		
+//		model.addAttribute("listaCargos", this.cargoService.listarTodos(true));
+//		model.addAttribute("listaEmpresas", this.empresaService.listarTodos(true));
+//		model.addAttribute("listaFuncionarios", this.funcService.buscarTodos());
+//		return "/funcionario/funcionario-form";
+	
+	}
+
 }

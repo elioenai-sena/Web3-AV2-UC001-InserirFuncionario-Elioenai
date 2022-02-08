@@ -77,7 +77,7 @@
 							<td	th:text="${#dates.format(func.dataCriacao, 'dd-MMM-yyyy hh:mm')}"></td>
 														
 							<td th:if="${session.usuarioLogado.perfil==T(br.ifpe.web2.acesso.Perfil).ADMINISTRADOR}">
-								<a href="">Editar</a> 
+								<a th:href="@{/editarFuncionario(codigo=${func.codigo})}">Editar</a> 
 								<a th:href="@{/deletarFuncPorCodigo(codigo=${func.codigo})}">Excluir</a>
 							</td>
 							

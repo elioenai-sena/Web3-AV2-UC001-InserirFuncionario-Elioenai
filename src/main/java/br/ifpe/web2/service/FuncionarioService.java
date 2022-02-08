@@ -2,6 +2,7 @@ package br.ifpe.web2.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,5 +53,11 @@ public class FuncionarioService {
 	public void deletarFuncPorCodigo(Integer id) {
 		this.funcionarioDAO.deleteById(id);
 	}
+
+	public Optional<Funcionario> buscarFuncPorId(Integer id) {
+		return funcionarioDAO.findById(id);
+	}
+	
+	
 
 }

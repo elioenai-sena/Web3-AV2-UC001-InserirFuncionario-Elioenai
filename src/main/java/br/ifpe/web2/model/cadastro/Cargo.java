@@ -14,7 +14,7 @@ public class Cargo extends ObjetoGeral {
 
 	@Column(length = 25, nullable = false)
 	@NotBlank(message = "Cargo não pode esta vazio")
-	@Length(max = 25, message = "Maximo 25 caracteres")
+	@Length(max = 25, message = "Tamanho Maximo 25 caracteres")
 	private String nome;
 	@Min(value = 1000, message = "Salario não pode ser menor que R$ 1000")
 	private double salario;
