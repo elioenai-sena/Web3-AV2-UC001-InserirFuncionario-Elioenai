@@ -17,20 +17,25 @@ public class FuncionarioService {
 
 	@Autowired
 	private FuncionarioDAO funcionarioDAO;
-	
 
-	public void inserirFuncionario(Funcionario funcionario) throws ServiceException {
+	public void inserirFuncionario(Funcionario funcionario, Integer codigo) throws ServiceException {
 
 		Funcionario funcExistente = this.funcionarioDAO.findByCpf(funcionario.getCpf());
+		
+		if (codigo == null) {
 
-		if (funcExistente != null) {
-			throw new ServiceException("Já existe um funcionário cadastrado com este CPF");
+			if (funcExistente != null) {
+				throw new ServiceException("Já existe um funcionário cadastrado com este CPF");
+			}
+			funcionario.setDataCriacao(new Date());
 		}
+
 		if (Util.calcularIdade(funcionario.getDataNascimento()) < 18) {
 			throw new ServiceException("Funcionário deve ter 18 anos ou mais");
 		}
-
-		funcionario.setDataCriacao(new Date());
+		if (codigo != null) {
+			funcionario.setDataCriacao(funcExistente.getDataCriacao());
+		}
 		funcionario.setDataUltimaAtualizacao(new Date());
 		this.funcionarioDAO.save(funcionario);
 	}
@@ -40,7 +45,7 @@ public class FuncionarioService {
 	}
 
 	public List<Funcionario> buscarPorEmpresa(Integer empresaCodigo) throws ServiceException {
-		
+
 		List<Funcionario> listaFunc = this.funcionarioDAO.findByEmpresaCodigo(empresaCodigo);
 		if (listaFunc.size() > 0) {
 			return listaFunc;
@@ -49,15 +54,17 @@ public class FuncionarioService {
 		}
 
 	}
-	
-	public void deletarFuncPorCodigo(Integer id) {
-		this.funcionarioDAO.deleteById(id);
+
+	public void deletarFuncPorCodigo(Integer codigo) {
+		this.funcionarioDAO.deleteById(codigo);
 	}
 
-	public Optional<Funcionario> buscarFuncPorId(Integer id) {
-		return funcionarioDAO.findById(id);
+	public Funcionario buscaPorCodigo(Integer codigo) {
+		return this.funcionarioDAO.findByCodigo(codigo);
 	}
-	
-	
+
+//	public Funcionario buscaPorCodigoAndCpf(Integer codigo, String cpf) {
+//		return this.funcionarioDAO.findByCodigoAndCpf(codigo, cpf);
+//	}
 
 }

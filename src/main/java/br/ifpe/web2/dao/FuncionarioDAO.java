@@ -10,7 +10,12 @@ public interface FuncionarioDAO extends JpaRepository<Funcionario, Integer>{
 
 	public Funcionario findByCpf(String cpf);
 	
+	public Funcionario findByCodigo(Integer codigo);
+	
+//	public Funcionario findByCodigoAndCpf(Integer codigo, String cpf);
+	
 	public boolean existsByCargoCodigo(Integer cargoCodigo);
 	
 	public List<Funcionario> findByEmpresaCodigo(Integer empresaCodigo);
+	
 }

@@ -62,6 +62,7 @@
 							<th class="th-lg">Cargo</th>
 							<th class="th-lg">Empresa</th>
 							<th class="th-lg">Cadastrado em</th>
+							<th class="th-lg">Atualizado em</th>
 							<th class="th-lg">+++</th>
 						</tr>
 					</thead>
@@ -75,9 +76,12 @@
 							<td th:text="${func.cargo.nome}"></td>
 							<td th:text="${func.empresa.nomeRazaoSocial}"></td>
 							<td	th:text="${#dates.format(func.dataCriacao, 'dd-MMM-yyyy hh:mm')}"></td>
+							<td	th:text="${#dates.format(func.dataUltimaAtualizacao, 'dd-MMM-yyyy hh:mm')}"></td>
+							
 														
 							<td th:if="${session.usuarioLogado.perfil==T(br.ifpe.web2.acesso.Perfil).ADMINISTRADOR}">
-								<a th:href="@{/editarFuncionario(codigo=${func.codigo})}">Editar</a> 
+								<!-- <a th:href="@{/editarFuncionario(cpf=${func.cpf},codigo=${func.codigo})}">Editar</a> --> 
+								<a th:href="@{/editarFuncionario(codigo=${func.codigo})}">Editar</a>
 								<a th:href="@{/deletarFuncPorCodigo(codigo=${func.codigo})}">Excluir</a>
 							</td>
 							

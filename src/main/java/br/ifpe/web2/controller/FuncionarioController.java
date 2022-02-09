@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ifpe.web2.acesso.Usuario;
+import br.ifpe.web2.dao.FuncionarioDAO;
 import br.ifpe.web2.model.cadastro.Funcionario;
 import br.ifpe.web2.service.CargoService;
 import br.ifpe.web2.service.EmpresaService;
@@ -24,7 +25,10 @@ public class FuncionarioController {
 
 	@Autowired
 	private FuncionarioService funcService;
-
+	
+	@Autowired
+	public FuncionarioDAO funcDao;
+	
 	@Autowired
 	private CargoService cargoService;
 
@@ -36,11 +40,12 @@ public class FuncionarioController {
 		model.addAttribute("listaCargos", this.cargoService.listarTodos(true));
 		model.addAttribute("listaEmpresas", this.empresaService.listarTodos(true));
 		model.addAttribute("listaFuncionarios", this.funcService.buscarTodos());
+		
 		return "/funcionario/funcionario-form";
 	}
 
 	@PostMapping("/inserirFuncionario")
-	public String inserirFuncionario(@Valid Funcionario funcionario, BindingResult br, Model model,
+	public String inserirFuncionario(@Valid Funcionario funcionario, BindingResult br,Integer codigo, Model model,
 			RedirectAttributes ra, HttpSession session) {
 		if (br.hasErrors()) {
 			return exibirFormFunc(funcionario, model);
@@ -50,7 +55,7 @@ public class FuncionarioController {
 			funcionario.setCriadoPor(usuarioLogado);
 			funcionario.setAlteradorPor(usuarioLogado);
 
-			this.funcService.inserirFuncionario(funcionario);
+			this.funcService.inserirFuncionario(funcionario, codigo);
 			ra.addFlashAttribute("mensagem", "Funcionário Cadastrado com Sucesso");
 			return "redirect:/formFunc";
 		} catch (ServiceException e) {
@@ -67,17 +72,19 @@ public class FuncionarioController {
 	}
 
 	@GetMapping("/editarFuncionario")
-	public String editarFuncionario(Funcionario funcionario, Integer codigo, Model model, RedirectAttributes ra) {
+	public String editarFuncionario(String cpf, Integer codigo, Model model, RedirectAttributes ra) {
 
-		ra.addAttribute("funcionario", this.funcService.buscarFuncPorId(codigo).orElse(null));
-		return "redirect:/formFunc";
+//		ra.addAttribute("funcionario", this.funcService.buscaPorCodigoAndCpf(codigo, cpf));
+//		ra.addAttribute("funcionario", this.funcService.buscaPorCodigo(codigo));
+//		return "redirect:/formFunc";
 		
-//		model.addAttribute("funcionario", this.funcService.buscarFuncPorId(codigo)) ;
-//		
-//		model.addAttribute("listaCargos", this.cargoService.listarTodos(true));
-//		model.addAttribute("listaEmpresas", this.empresaService.listarTodos(true));
-//		model.addAttribute("listaFuncionarios", this.funcService.buscarTodos());
-//		return "/funcionario/funcionario-form";
+//		model.addAttribute("funcionario", this.funcService.buscaPorCodigoAndCpf(codigo, cpf)) ;
+		model.addAttribute("funcionario", this.funcService.buscaPorCodigo(codigo)) ;
+		
+		model.addAttribute("listaCargos", this.cargoService.listarTodos(true));
+		model.addAttribute("listaEmpresas", this.empresaService.listarTodos(true));
+		model.addAttribute("listaFuncionarios", this.funcService.buscarTodos());
+		return "/funcionario/funcionario-form";
 	
 	}
 
